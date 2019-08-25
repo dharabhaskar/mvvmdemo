@@ -2,6 +2,7 @@ package com.dharabhaskar.mvvm.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.dharabhaskar.mvvm.data.repositories.UserRepository
 
 class AuthViewModel: ViewModel() {
      var emailID:String?=null
@@ -16,7 +17,8 @@ class AuthViewModel: ViewModel() {
             authListener?.onError("Empty password or email")
             return
         }
-        authListener?.onSuccess()
+        val loginResponse=UserRepository().userLogin(emailID!!,password!!)
+        authListener?.onSuccess(loginResponse)
         //Success...
     }
 
