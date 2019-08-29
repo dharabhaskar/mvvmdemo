@@ -8,8 +8,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.dharabhaskar.mvvm.R
+import com.dharabhaskar.mvvm.data.db.User
 import com.dharabhaskar.mvvm.databinding.ActivityLoginBinding
 import com.dharabhaskar.mvvm.utils.toast
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(),AuthListener {
@@ -27,11 +29,11 @@ class LoginActivity : AppCompatActivity(),AuthListener {
         progress.visibility= View.VISIBLE
     }
 
-    override fun onSuccess(loginResponse: LiveData<String>) {
+    override fun onSuccess(user:User?) {
         progress.visibility= View.GONE
-        loginResponse.observe(this, Observer {
-            toast(it)
-        })
+        user?.let {
+            toast("User Details:"+Gson().toJson(user))
+        }
     }
 
     override fun onError(errMsg: String) {

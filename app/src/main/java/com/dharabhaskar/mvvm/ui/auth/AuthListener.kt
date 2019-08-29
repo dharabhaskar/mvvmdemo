@@ -1,9 +1,9 @@
 package com.dharabhaskar.mvvm.ui.auth
 
-import androidx.lifecycle.LiveData
+import com.dharabhaskar.mvvm.data.db.User
 
 interface AuthListener {
     fun onStarted()
-    fun onSuccess(loginResponse: LiveData<String>)
+    fun onSuccess(user:User?)
     fun onError(errMsg:String)
 }
