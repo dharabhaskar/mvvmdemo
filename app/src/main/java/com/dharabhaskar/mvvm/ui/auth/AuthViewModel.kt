@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.dharabhaskar.mvvm.data.repositories.UserRepository
 import com.dharabhaskar.mvvm.utils.Coroutines
+import java.lang.Exception
 
 class AuthViewModel: ViewModel() {
      var emailID:String?=null
@@ -21,13 +22,15 @@ class AuthViewModel: ViewModel() {
 
 
         Coroutines.main{
-            val loginResponse=UserRepository().userLogin(emailID!!,password!!)
-            if(loginResponse.isSuccessful){
-                authListener?.onSuccess(loginResponse.body()?.user)
-            }else{
-                authListener?.onError("Login failed...")
-            }
+            try{
+                val loginResponse=UserRepository().userLogin(emailID!!,password!!)
 
+                if(loginResponse.isSuccessful!!){
+                    authListener?.onSuccess(loginResponse?.user)
+                }
+            }catch (ex:Exception){
+                authListener?.onError(ex.message!!)
+            }
         }
 
         //Success...

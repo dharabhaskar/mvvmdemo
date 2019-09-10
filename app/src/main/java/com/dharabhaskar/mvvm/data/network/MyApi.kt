@@ -15,14 +15,14 @@ interface MyApi {
     @POST("login")
     suspend fun login(
         @Field("email") email:String,
-        @Field("email") password:String
+        @Field("password") password:String
     ): Response<AuthResponse>
 
     @FormUrlEncoded
     @POST("signup")
     fun signup(
         @Field("email") email:String,
-        @Field("email") password:String
+        @Field("password") password:String
     ): Call<ResponseBody>
 
 
